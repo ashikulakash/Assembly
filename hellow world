@@ -1,0 +1,15 @@
+iclude "emu8086.inc"
+.model small
+.stack 100h
+.code
+main proc
+    print "press 1 to display"
+    
+    mov ah,1
+    int 21h
+    
+    cmp al. "1"
+    jne exit
+    print "hello world!"
+    
+    exit:
