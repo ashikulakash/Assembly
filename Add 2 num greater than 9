@@ -1,0 +1,29 @@
+INCLUDE "EMU8086.INC"
+.MODEL SMALL
+.STACK
+.CODE
+MAIN PROC
+    
+    PRINT "ENTER TWO VALUE TO ADD:   "
+    
+    MOV AH,1
+    INT 21H
+    MOV BL,AL
+    INT 21H
+    
+    ADD AL,BL
+    MOV AH,0
+    AAA
+    ADD AH,30H
+    ADD AL,30H
+    MOV BX,AX
+    PRINTN
+    PRINT "RESULT IS:   "
+    
+    MOV AH,2
+    MOV DL,BH
+    INT 21H
+    MOV DL,BL
+    INT 21H
+    
+    EXIT:
