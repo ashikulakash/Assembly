@@ -1,0 +1,78 @@
+INCLUDE "EMU8086.INC"
+.MODEL SMALL
+.STACK 100H
+.CODE
+MAIN PROC
+    PRINT "ENTER 1ST NUMBER-> "
+    MOV AH,1
+    INT 21H
+    MOV BL,AL
+    
+    PRINTN
+    PRINT "ENTER 2ND NUMBER-> "
+    MOV AH,1
+    INT 21H
+    MOV DL,AL
+    
+    PRINTN
+    PRINT "ENTER M FOR MULTIPLY-> "
+    PRINTN
+    PRINT "ENTER D FOR DIVIDE-> "
+    MOV AH,1
+    INT 21H
+    MOV CL,AL
+    MOV AL,DL
+    
+    CMP CL,"M"
+    JE MULT
+    CMP CL,"D"
+    JE DIVI
+    JNE WRONG
+    
+    MULT:
+         SUB BL,30H
+         SUB AL,30H
+         
+         MUL BL
+         AAM
+         ADD AH,30H
+         ADD AX,30H
+         MOV CX,AX
+         PRINTN
+         PRINT "MUNTIPLY-> "
+         MOV AH,2
+         MOV DL,CH
+         INT 21H
+         
+         MOV AH,2
+         MOV DL,CL
+         INT 21H
+         JMP EXIT
+    DIVI:
+         SUB BL,30H
+         SUB AL,30H
+         MOV AH,0
+         
+         DIV BL
+         MOV BX,AX
+         ADD BH,30H
+         ADD BL,30H
+         
+         PRINTN
+         PRINT "ANS -> "
+         MOV AH,2
+         MOV DL,BL
+         INT 21H
+         
+         PRINTN
+         PRINT "REMINDER-> "
+         MOV AH,2
+         MOV DL,BH
+         INT 21H
+         JMP EXIT
+    WRONG:
+        
+        PRINT "WRONG INPUT"
+     
+    
+    EXIT:
