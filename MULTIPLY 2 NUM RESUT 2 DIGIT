@@ -1,0 +1,33 @@
+INCLUDE "EMU8086.INC"
+.MODEL SMALL
+.STACK
+.CODE
+MAIN PROC
+    
+    PRINT "ENTER TWO VALUE TO MULTIPLY:   "
+    
+    MOV AH,1
+    INT 21H
+    MOV BL,AL
+    SUB BL,30H
+    INT 21H
+    SUB AL,30H
+    
+    MUL BL
+    AAM
+    ADD AH,30H
+    ADD AX,30H
+    MOV CX,AX
+   
+    PRINTN 
+    PRINT "RESULT:  "  
+    
+    MOV AH,2
+    MOV DL,CH
+    INT 21H
+    
+    MOV AH,2
+    MOV DL,CL
+    INT 21H
+    
+    EXIT:
