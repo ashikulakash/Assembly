@@ -1,0 +1,36 @@
+INCLUDE "EMU8086.INC"
+.MODEL SMALL
+.STACK
+.CODE
+MAIN PROC
+    
+    
+    
+    MOV AH,1
+    INT 21H
+    MOV BL,AL
+    INT 21H
+    SUB BL,30H 
+    
+    MOV AL,2
+    
+    DIV BL
+    MOV BX,AX
+    ADD BH,30H
+    ADD AH,30H
+    
+    CMP BH,0
+    JE EVEN
+    PRINT ""
+    
+    
+
+    PRINT "ODD"
+    
+    JMP EXIT: 
+    EVEN:
+    PRINT "EVEN"
+    
+ 
+   
+    EXIT:
