@@ -1,0 +1,49 @@
+org 100h
+.model small
+.stack 100h
+.data
+    msg db "Enter three initials: $"
+    a db 0
+    b db 0
+    c db 0
+.code
+main proc
+     mov ah,9
+     lea dx,msg
+     int 21h
+     
+     mov ah,1
+     int 21h
+     mov a,al
+     
+     mov ah,1
+     int 21h
+     mov b,al
+     
+     mov ah,1
+     int 21h
+     mov c,al
+     
+     mov ah,2        ;FOR ENTER
+     mov dl,0ah
+     int 21h
+     
+     mov ah,2        ;LEFT MARGIN
+     mov dl,0dh
+     int 21h
+     
+     
+     mov ah,2         ;FIRST
+     mov dl,a
+     int 21h
+                      
+     mov ah,2         ;SECOND
+     mov dl,b
+     int 21h 
+     
+     mov ah,2         ;THIRD
+     mov dl,c
+     int 21h
+     
+    main endp 
+end main   
