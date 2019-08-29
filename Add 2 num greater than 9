@@ -1,29 +1,66 @@
-INCLUDE "EMU8086.INC"
+ORG 100H
 .MODEL SMALL
-.STACK
+.STACK 100H
+.DATA
+    A DB 0
+    B DB 0
+    
+    MSG2 DB 'THE SUM OF $'
+    MSG3 DB ' AND $'
+    MSG4 DB ' IS $'
 .CODE
 MAIN PROC
-    
-    PRINT "ENTER TWO VALUE TO ADD:   "
+    MOV AH,1
+    INT 21H          ;INPUT SAVE IN 'AL'
+    MOV A,AL
     
     MOV AH,1
     INT 21H
-    MOV BL,AL
-    INT 21H
+    MOV B,AL
     
-    ADD AL,BL
-    MOV AH,0
-    AAA
-    ADD AH,30H
-    ADD AL,30H
-    MOV BX,AX
-    PRINTN
-    PRINT "RESULT IS:   "
+    ADD AL,A           ; ADDING A AND B IN A  
+    MOV AH,0           ; AX = AH, AL 
+    AAA                ;ADJUST AFTER ADDITION
+    
+    MOV BX,AX          ;BX = BH, BL
+    ADD BH,30H
+    ADD BL,30H
     
     MOV AH,2
-    MOV DL,BH
+    MOV DL,0AH          ;PRINT NEWLINE
     INT 21H
+    MOV AH,2
+    MOV DL,0DH
+    INT 21H
+    
+ 
+    MOV AH,9             ;PRINT MSG2
+    LEA DX,MSG2
+    INT 21H
+    
+    MOV AH,2
+    MOV DL,A              ;PRINT A
+    INT 21H
+    
+    MOV AH,9             ;PRINT MSG3
+    LEA DX,MSG3
+    INT 21H 
+    
+    MOV AH,2
+    MOV DL,B              ;PRINT B
+    INT 21H
+    
+    MOV AH,9             ;PRINT MSG4
+    LEA DX,MSG4
+    INT 21H
+    
+    MOV AH,2
+    MOV DL,BH           ;SHOWING SUM
+    INT 21H 
+    MOV AH,2
     MOV DL,BL
     INT 21H
     
-    EXIT:
+    
+    MAIN ENDP
+END MAINN
