@@ -1,32 +1,41 @@
-org 100h
-.model small
-.stack 100h
-.data
-    x db 0
-    z db 31h
-.code
+ORG 100H
+.MODEL SMALL
+.STACK 100H
+.DATA
+    X DB 0
+    Z DB 31H
+.CODE
 
-main proc
+MAIN PROC
     
-    mov bl,30h
-    Lp:
-    mov ah,1
-    int 21h
-    inc bl
+    MOV BL,30H
+    LP:
+    MOV AH,1
+    INT 21H
+    INC BL
     
-    cmp al,20h
-    je Exit
-    jmp Lp
+    CMP AL,20H
+    JE EXIT
+    JMP LP
     
-    Exit:
-        mov x,bl
-        mov bl,z
-        sub x,bl
-        add x,30h
-        mov ah,2
-        mov dl,x
-        int 21h
+    EXIT:
+        MOV X,BL
+        MOV BL,Z
+        SUB X,BL
+        ADD X,30H
+        
+        MOV AH,2       ;ENTER
+        MOV DL,0AH
+        INT 21H
+        
+        MOV AH,2       ;LEFT MARJIN
+        MOV DL,0DH
+        INT 21H
+        
+        MOV AH,2
+        MOV DL,X
+        INT 21H
         
         
-    main endp
-end main
+    MAIN ENDP
+END MAIN
